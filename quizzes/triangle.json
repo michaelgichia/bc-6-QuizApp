@@ -1,0 +1,114 @@
+{	"questions": [{
+			"Qn": "Atriangle with one angle greater than 90 degrees.",
+			"A": "equilateral triangle",
+			"B": "obtuse triangle",
+			"C": "acute triangle",
+			"D": "isosceles triangle",
+			"answer": "B"
+			},{
+			"Qn": "A triangle with all three angles less than 90 degrees.",
+			"A": "equilateral triangle",
+			"B": "obtuse triangle",
+			"C": "acute triangle",
+			"D": "isosceles triangle",
+			"answer": "C"
+			},{
+			"Qn": "A triangle having at least two equal sides.",
+			"A": "acute triangle",
+			"B": "isosceles triangle",
+			"C": "equilateral triangle",
+			"D": "obtuse triangle",
+			"answer": "B"
+			},{
+			"Qn": "triangle with one angle equal to 90 degrees.",
+			"A": "right triangle",
+			"B": "equilateral triangle",
+			"C": "acute triangle",
+			"D": "obtuse triangle",
+			"answer": "A"
+			},{
+			"Qn": "A triangle having three equal sides.",
+			"A": "acute triangle",
+			"B": "obtuse triangle",
+			"C": "right triangle",
+			"D": "equilateral triangle",
+			"answer": "D"
+			},{
+			"Qn": "The sum of the measures of all three sides of a triangle.",
+			"A": "area",
+			"B": "perimeter",
+			"C": "diameter",
+			"D": "none",
+			"answer": "B"
+			},{
+			"Qn": "In right triangle, the side opposite to right angle is called.",
+			"A": "altitude",
+			"B": "hypotenuse",
+			"C": "angle bisector",
+			"D": "none",
+			"answer": "B"
+		},{
+			"Qn": "In equilateral triangle, all three angles are equal.",
+			"A": "True",
+			"B": "False",
+			"C": "none of the above",
+			"answer": "A"
+		},{
+			"Qn": "The perimeter of a equilateral triangle is 15cm. What is the length of one side?",
+			"A": "3",
+			"B": "45",
+			"C": "15",
+			"D": "5",
+			"answer": "D"
+		},{
+			"Qn": "The sum of all the angles of a triangle.",
+			"A": "360 degrees",
+			"B": "90 degrees",
+			"C": "180 degrees",
+			"D": "100 degrees",
+			"answer": "C"
+
+		}
+	]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
