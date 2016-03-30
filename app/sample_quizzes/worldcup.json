@@ -1,4 +1,4 @@
-{"time": 600,
+{
 "questions": [
 		{
 			"Qn": "Which player has scored the most World Cup goals?",
@@ -19,12 +19,13 @@
 			"A": "Brazil",
 			"B": "Germany",
 			"C": "Argentina",
-			"answer": "Brazil"
+			"D": "None",
+			"answer": "A"
 		},{
 			"Qn": "What is the World Cup most valuable player award called?",
 			"A": "The Pelé Prize",
 			"B": "The Beckenbauer Bust",
-			"": "The Golden Boot",
+			"C": "The Golden Boot",
 			"D": "The Golden Ball",
 			"answer": "D"
 		},{
@@ -47,14 +48,14 @@
 			"B": "10",
 			"C": "12",
 			"D": "16",
-			"answer": "12"
+			"answer": "C"
 		},{
 			"Qn": "How many Brazilian cities are hosting World Cup games in 2014?",
 			"A": "6",
 			"B": "10",
 			"C": "12",
 			"D": "16",
-			"answer": "12"
+			"answer": "C"
 		},{
 			"Qn": "Which of these countries has NOT hosted the World Cup twice?",
 			"A": "England",

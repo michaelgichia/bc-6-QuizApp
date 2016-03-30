@@ -2,11 +2,8 @@ import cmd
 
 import os
 
-import shutil
-
 import json
 
-import time
 
 class QuizApp(cmd.Cmd):
 
@@ -28,20 +25,177 @@ class QuizApp(cmd.Cmd):
 
     intro += "\n\ttakequiz <quiz_name> - Start taking a new quiz\n"
 
+    doc_header = "Documented commands (type help <topic>):"
+
+    undoc_header = "Undocumented commands:"
+
+
+    def list_questions(self, samplequiz):
+
+        """
+            This function prints questions to the console.
+
+            Also return the result of question user didn't get right.
+
+            This function is call from do_takequiz function so that it 
+
+            can excute after a quiz is choosen by the user.
+
+        """
+
+        # Empty list to store question answered wrongly and user answers
+        wrong_questions = []
+
+        score = 0
+
+        # # Load the json file and read it as dictionary
+        # with open("./sample_quizzes/"samplequiz) as f:
+        #     json_text = json.load(f)
+
+            # Print the question and options to the console
+        for counter, i in enumerate(samplequiz["questions"], 1) :
+
+            # Print the question to the console. Counter dictate the position of the question
+            print "\nQn" + str(counter)+":" + i["Qn"]+ "\n"
+
+            # Pretify the console with 50*'='
+            print "="*70
+
+            # Print option A to console as an aswer potion    
+            print "A : " + i["A"]
+
+            # Print option B to console as an aswer potion 
+            print "B : " + i["B"]
+
+            # Print option C to console as an aswer potion 
+            print "C : " + i["C"]
+
+            # Print option D to console as an aswer potion 
+            print "D : " + i["D"] + "\n"
+            
+            # Prompt the user for the answer
+            answer = raw_input("Your answer? ").upper()
+
+            # Check is answer is a valid option    
+            while answer not in ["A", "B", "C", "D"]:
+
+                # Promt the user for a valid option
+                answer = raw_input("Invalid entry!, please enter a valid option: ").upper()
+
+            # Compare user answer and right answer to append to wrong_questions list
+            if answer != i["answer"]:
+
+                # Append the whole question to wrong_question list
+                wrong_questions.append(i)
+
+            # Pretify the console with 70*'='    
+            print "="*70 + "\n"
+
+        score =  len(samplequiz["questions"]) - len(wrong_questions)
+
+        print "="*30+"\n"
+        print "Score: " + str(score) + " out of " + str(len(samplequiz["questions"])) + " questions" + "\n"
+        print "="*30+"\n" 
+
+        # Prompt the user if they would want to see answers to questions they didn't get right               
+        answer2 = raw_input("\nDo you want to see question you answered wrongly? [Y/n] ")
+
+        print "\n"
+
+        # If user answer is y then print the wrong_question list that contain wrong question
+        if answer2.lower() == "y":
+
+            # Pretify the console with 70*'='
+            print "="*70
+
+            # Pretify the console 
+            print " "*20 + " Questions You Got Wrong " + " "*20 + "\n"
+
+            # Pretify the console with 70*'='
+            print "="*70
+
+            # For loop to iterate over the wrong_question list
+
+            # Print the wrong questions and answers
+            for wrong_qn in wrong_questions:
+
+                # Print the question to console
+                print "\nQn: "+ wrong_qn["Qn"] + "\n"
+
+                # Pretify the console with 70*'_'
+                print "_"*70
+
+                # Print option B to console as an aswer potion
+                print "A : " + wrong_qn["A"]
+
+                # Print option B to console as an aswer potion
+                print "B : " + wrong_qn["B"]
+
+                # Print option B to console as an aswer potion
+                print "C : " + wrong_qn["C"]
+
+                # Print option B to console as an aswer potion
+                print "D : " + wrong_qn["D"]
+
+                # Print option B to console as an aswer potion
+                print "answer : " + wrong_qn["answer"]
+
+
+            # Pretify the console with 70*'_'
+                print "_"*70 + "\n"
+
 
     def do_listquizzes(self, samplequiz):
+        """
+Description: 
+
+    Console command for listing sample quizzes.
+
+Usage:
+
+    type: 'listquizzes'
+    """
+        # We don't call the function because the cmd2 module calls 
+        # every function that starts with "do_"
 
         # loop over the folder with sample quizzes
-        for num, file in enumerate(os.listdir("./sample_quizzes"), 1):
+        for num, file in enumerate(os.listdir("./sample_quizzes/"), 1):
 
             if file.endswith("json"):
-                print " "
-                print "\t" + str(num)+'. ' + file[:len(file) - 5]
+                
+                print "\n\t" + str(num)+'. ' + file[:len(file) - 5]
         print " "
         print ">>> To take a quiz type 'takequiz <quiz_name>' or \n"
         print ">>> To import a quiz  type 'importquiz' "
 
 
-# Seload the game over and over with cmdloop
+    def do_takequiz(self, samplequiz):
+        """
+Description: 
+
+    Console command for taking sample quizzes.
+
+Usage:
+
+    type: takequiz <quiz_name>
+    """
+        # We don't call the function because the cmd2 module calls 
+        # every function that starts with "do_"
+
+
+        # Equate samplequiz argument to respective json file
+        samplequiz = "./sample_quizzes/" + samplequiz + ".json"
+
+        # Load and read the json file as a dictionary
+        with open(samplequiz) as f:
+
+            samplequiz = json.load(f)
+
+
+        # Call the function list_questions to print question to the console
+        # This function also displays results and question are wrongly answered
+        self.list_questions(samplequiz)
+
+# Seload the game over and over with Cmdloop
 if __name__ == '__main__':
     QuizApp().cmdloop()
