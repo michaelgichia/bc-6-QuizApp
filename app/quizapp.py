@@ -59,7 +59,7 @@ class QuizApp(cmd.Cmd):
 
     intro += "\n\t-importquiz <path_to_quiz_JSON>   --Import a new quiz from a JSON file\n"
 
-    intro += "\n\t-takequiz <quiz_name>             --Start taking a new quiz\n"
+    intro += "\n\t-takequiz <quiz_name>             --Start a new quiz\n"
 
     intro += "="*100 + "\n\n"
 
@@ -263,7 +263,7 @@ Usage:
             print('Error: %s' % e.strerror)
 
 
-    def do_onlinequizzes():
+    def do_onlinequizzes(self, samplequiz):
         """
 Description: 
 
@@ -274,6 +274,26 @@ Usage:
     do_onlinequizzes
 
     """
+
+        # Firebase db url to upload and download samplequiz
+        db_url = 'https://cmdquizapp.firebaseio.com/'
+
+        # API to update(PATCH, PUT), create(POST), or remove(DELETE) stored data
+        firebase = firebase.FirebaseApplication('https://cmdquizapp.firebaseio.com', None)
+     
+        # Call a get request and store the root file in the samplequizzes
+        samplequizzes = self.firebase.get('/', None)
+
+        # Loop over the samplequizzes to list them 
+        # Call enumerate method to arrange the quizzes starting from 1
+        for num, samplequiz in enumerate(samplequizzes, 1):
+
+            # Print quiz from firebase db
+            print num, samplequiz
+
+        # Ask user to take online quiz
+        print "\nTo take the online quiz type: takequiz <quiz_name>\n"
+
 
 
 
