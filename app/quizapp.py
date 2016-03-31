@@ -68,6 +68,13 @@ class QuizApp(cmd.Cmd):
     undoc_header = "Undocumented commands:"
 
 
+    # Firebase db url to upload and download samplequiz
+    db_url = 'https://cmdquizapp.firebaseio.com/'
+
+    # API to update(PATCH, PUT), create(POST), or remove(DELETE) stored data
+    firebase = firebase.FirebaseApplication('https://cmdquizapp.firebaseio.com', None)
+
+
     def list_questions(self, samplequiz):
 
         """
@@ -271,22 +278,16 @@ Description:
 
 Usage:
 
-    do_onlinequizzes
+    onlinequizzes
 
     """
-
-        # Firebase db url to upload and download samplequiz
-        db_url = 'https://cmdquizapp.firebaseio.com/'
-
-        # API to update(PATCH, PUT), create(POST), or remove(DELETE) stored data
-        firebase = firebase.FirebaseApplication('https://cmdquizapp.firebaseio.com', None)
      
         # Call a get request and store the root file in the samplequizzes
-        samplequizzes = self.firebase.get('/', None)
+        quizzes = self.firebase.get('/', None)
 
         # Loop over the samplequizzes to list them 
         # Call enumerate method to arrange the quizzes starting from 1
-        for num, samplequiz in enumerate(samplequizzes, 1):
+        for num, samplequiz in enumerate(quizzes, 1):
 
             # Print quiz from firebase db
             print num, samplequiz
@@ -294,6 +295,83 @@ Usage:
         # Ask user to take online quiz
         print "\nTo take the online quiz type: takequiz <quiz_name>\n"
 
+
+    def do_downloadquiz(self, samplequiz):
+
+        # Check if the command is passed with the argument
+        if samplequiz:
+
+            # Url for the selected json file
+            quiz_url = self.db_url + samplequiz + ".json"
+
+            # File to store downloaded samplequiz
+            dest_folder = "./sample_quizzes/" + samplequiz + ".json"
+
+            # Create the file json
+            dest_ = os.mkdir(dest_folder) 
+
+            try:
+
+                # Call a get request and store the dict to json_text
+                json_text = self.firebase.get(quiz_url, None)
+
+                # Write the dict to json file
+                with open('dest', 'w') as txtfile:
+
+                    json.dump(json_text, txtfile)
+
+                print "Quiz downloaded successfully!"
+
+            # if error 
+            except:
+
+                print "Quiz failed to downoad!"
+
+        else:
+            print "To download again please type:\n  downloadquiz <quiz_name>"
+
+
+    def do_uploadquiz(self, samplequiz):
+
+        # Check if argument is given
+        if samplequiz:
+
+            # Current directory and name of the json file
+            quiz_name = "./sample_quizzes/" + samplequiz + ".json"
+
+            try:
+
+                # Write the dict to json file
+                with open('dest', 'w') as txtfile:
+
+                    # This is dict    
+                    json_text = json.load(txtfile)
+
+                # Call a post request and post to firebase db
+                self.firebase.put("/", samplequiz, json_text)
+
+            # Return Error
+            except:
+                print "File didn't upload!"
+
+        else:
+
+            print "To upload again please type:\n  upload <quiz_name>"
+
+    def do_takeonline(self, samplequiz):
+
+        # Check if argument is given
+        if samplequiz:
+
+            # Variable that reference the dict on firebase db
+            var_path ='/' + samplequiz
+
+            # Download the quiz
+            # Call a get request to download the quiz dict
+            quiz = self.firebase.get(var_path, None)
+
+            # Call list_questions to display the json file
+            self.list_questions(samplequiz)
 
 
 
