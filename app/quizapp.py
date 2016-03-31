@@ -2,18 +2,29 @@ import cmd
 
 import os
 
+# This module helps in import a file to a specific folder
+import shutil
+
 import json
+
+# To change font size and also create a banner
+from pyfiglet import Figlet
+
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
+
+from firebase import firebase
+
+
 
 
 class QuizApp(cmd.Cmd):
 
+    f = Figlet(font='slant')
 
-	# Introductionory message to the console
-    intro = "\n+++++++++++++++++++++++++++++++++++\n"
+    intro = Back.BLACK + Fore.CYAN + f.renderText('Welcome to QuizApp')
 
-    intro += "\nWelcome to the quiz shell.\n"
-
-    intro += "\n+++++++++++++++++++++++++++++++++++\n"
+    intro += Style.RESET_ALL
 
     intro += "\nAvailable commands please type:\n"
 
@@ -153,7 +164,7 @@ Description:
 
 Usage:
 
-    type: 'listquizzes'
+    'listquizzes'
     """
         # We don't call the function because the cmd2 module calls 
         # every function that starts with "do_"
@@ -170,6 +181,7 @@ Usage:
 
 
     def do_takequiz(self, samplequiz):
+
         """
 Description: 
 
@@ -177,7 +189,7 @@ Description:
 
 Usage:
 
-    type: takequiz <quiz_name>
+    takequiz <quiz_name>
     """
         # We don't call the function because the cmd2 module calls 
         # every function that starts with "do_"
@@ -195,6 +207,33 @@ Usage:
         # Call the function list_questions to print question to the console
         # This function also displays results and question are wrongly answered
         self.list_questions(samplequiz)
+
+    def do_importquiz(self, src):
+        """
+Description: 
+
+    Console command for importing a quiz.
+
+Usage:
+
+    importquiz <path_to_quiz_JSON>
+    """
+        # dest is the destination path where to store imported quiz
+        dest = "./sample_quizzes/"
+
+        # Move the json file from src(source) to dest(destination)
+        try:
+            shutil.move(src, dest)
+            print "\nQuiz successfully imported to sample_quizzes folder "
+
+        # Print an Error message indicating source and destination are the same file
+        except shutil.Error as e:
+            print('Error: source path and destination path are the same!')
+
+        # Print Error message indicating source or destination doesn't exist
+        except IOError as e:
+            print('Error: %s' % e.strerror)
+
 
 # Seload the game over and over with Cmdloop
 if __name__ == '__main__':
