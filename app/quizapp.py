@@ -1,40 +1,67 @@
+# cmd is a framework for command-line applications
 import cmd
 
+# Help in listing directories
 import os
 
 # This module helps in import a file to a specific folder
 import shutil
 
+# Encoding and decoding string
 import json
 
 # To change font size and also create a banner
 from pyfiglet import Figlet
 
+# Libary for color and font formatting
 from colorama import Fore, Back, Style, init
+# Assist the colorama to run on windows
 init(autoreset=True)
 
+# Firebase db for downloading and uploading quizzes
 from firebase import firebase
 
 
 
 
 class QuizApp(cmd.Cmd):
+    # Cmd class provides a simple framework for writing line-oriented command interpreters
 
+    # Change the default font to slant 
     f = Figlet(font='slant')
 
-    intro = Back.BLACK + Fore.CYAN + f.renderText('Welcome to QuizApp')
+    # Banner
 
+    intro = "\n\n"
+
+    intro = Fore.CYAN + f.renderText('  QuizApp')
+
+    intro += "-+-"*20+"\n"
+
+    intro += "-+-"*20+"\n"
+
+    # Reset the colour and and style
     intro += Style.RESET_ALL
 
-    intro += "\nAvailable commands please type:\n"
 
-    intro += "\n\thelp or ? to list commands\n"
+    # Below is a menu that appear first on the console
+    intro += Style.BRIGHT + "\nUsage:\n"
 
-    intro += "\n\tlistquizzes - List of all the available quizzes in your library\n"
+    intro += "="*100
 
-    intro += "\n\timportquiz <path_to_quiz_JSON> - Import a new quiz from a JSON file\n"
+    intro += "\n\t-help <command>                    --Show this screen and exit.\n"    
 
-    intro += "\n\ttakequiz <quiz_name> - Start taking a new quiz\n"
+    intro += "\nOptions: \n"
+
+    intro += "="*100
+
+    intro += "\n\t-listquizzes                       --List of all the available quizzes in your library\n\n"
+
+    intro += "\n\t-importquiz <path_to_quiz_JSON>   --Import a new quiz from a JSON file\n"
+
+    intro += "\n\t-takequiz <quiz_name>             --Start taking a new quiz\n"
+
+    intro += "="*100 + "\n\n"
 
     doc_header = "Documented commands (type help <topic>):"
 
@@ -208,6 +235,7 @@ Usage:
         # This function also displays results and question are wrongly answered
         self.list_questions(samplequiz)
 
+
     def do_importquiz(self, src):
         """
 Description: 
@@ -233,6 +261,20 @@ Usage:
         # Print Error message indicating source or destination doesn't exist
         except IOError as e:
             print('Error: %s' % e.strerror)
+
+
+    def do_onlinequizzes():
+        """
+Description: 
+
+    Console command for listing online quizzes on firebase.
+
+Usage:
+
+    do_onlinequizzes
+
+    """
+
 
 
 # Seload the game over and over with Cmdloop
