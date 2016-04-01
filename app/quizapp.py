@@ -50,7 +50,7 @@ class QuizApp(cmd.Cmd):
     intro += "-+-"*30+"\n"
 
     # Below is a menu that appear first on the console
-    intro += Style.BRIGHT + "\nUsage:\n"
+    intro += Fore.YELLOW + Style.BRIGHT + "\nUsage:\n"
 
     intro += "\n\t<command> [<args>] [<options]                   --Show this screen and exit.\n"    
 
@@ -132,28 +132,28 @@ class QuizApp(cmd.Cmd):
             print "\n" + "-+-"*10
 
             # Display remaing time in user friendly formatting
-            print "\nRemaining Time in Seconds: " + str(remaining) + " \n"
+            print Back.BLACK + Fore.YELLOW + "\nRemaining Time in Seconds: " + str(remaining) + " \n"
 
             # Pretify the console with 50*'='
             print "-+-"*10
 
             # Print the question to the console. Counter dictate the position of the question
-            print "\nQn" + str(counter)+" : " + i["Qn"]+ "\n"
+            print Back.CYAN + Fore.BLACK + "\nQn" + str(counter)+" : " + i["Qn"]+ "\n"
 
             # Pretify the console with 50*'='
             print "="*70
 
             # Print option A to console as an answer potion    
-            print "A : " + i["A"]
+            print Fore.GREEN +"A : " + i["A"]
 
             # Print option B to console as an answer potion 
-            print "B : " + i["B"]
+            print Fore.GREEN + "B : " + i["B"]
 
             # Print option C to console as an answer potion 
-            print "C : " + i["C"]
+            print Fore.GREEN + "C : " + i["C"]
 
             # Print option D to console as an answer potion 
-            print "D : " + i["D"] + "\n"
+            print Fore.GREEN + "D : " + i["D"] + "\n"
             
             # Prompt the user for the answer
             answer = raw_input("Your answer? ").upper()
@@ -202,7 +202,7 @@ class QuizApp(cmd.Cmd):
             for wrong_qn in wrong_questions:
 
                 # Print the question to console
-                print "\nQn: "+ wrong_qn["Qn"] + "\n"
+                print Fore.MAGENTA + "\nQn: "+ wrong_qn["Qn"] + "\n"
 
                 # Pretify the console with 70*'_'
                 print "_"*70
@@ -220,7 +220,7 @@ class QuizApp(cmd.Cmd):
                 print "D : " + wrong_qn["D"]
 
                 # Print option B to console as an aswer potion
-                print "answer : " + wrong_qn["answer"]
+                print Fore.RED + "answer : " + wrong_qn["answer"]
 
 
             # Pretify the console with 70*'_'
