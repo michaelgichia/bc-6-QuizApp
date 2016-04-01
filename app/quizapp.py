@@ -21,6 +21,12 @@ init(autoreset=True)
 # Firebase db for downloading and uploading quizzes
 from firebase import firebase
 
+# For time functionality
+import time
+
+# Helper to download json file
+import requests
+
 
 
 
@@ -28,40 +34,41 @@ class QuizApp(cmd.Cmd):
     # Cmd class provides a simple framework for writing line-oriented command interpreters
 
     # Change the default font to slant 
-    f = Figlet(font='slant')
+    f = Figlet()
 
     # Banner
 
     intro = "\n\n"
 
-    intro = Fore.CYAN + f.renderText('  QuizApp')
-
-    intro += "-+-"*20+"\n"
-
-    intro += "-+-"*20+"\n"
+    intro = Fore.CYAN + f.renderText(' '*15 + 'Q u i z App')
 
     # Reset the colour and and style
     intro += Style.RESET_ALL
 
+    intro += "-+-"*30+"\n"
+
+    intro += "-+-"*30+"\n"
 
     # Below is a menu that appear first on the console
     intro += Style.BRIGHT + "\nUsage:\n"
 
-    intro += "="*100
+    intro += "\n\t<command> [<args>] [<options]                   --Show this screen and exit.\n"    
 
-    intro += "\n\t-help <command>                    --Show this screen and exit.\n"    
+    intro += "\nCommands: \n"
 
-    intro += "\nOptions: \n"
+    intro += "\n\tlistquizzes                      --List of all the available quizzes in your library\n"
 
-    intro += "="*100
+    intro += "\n\timportquiz <path_to_quiz_JSON>   --Import a new quiz from a JSON file\n"
 
-    intro += "\n\t-listquizzes                       --List of all the available quizzes in your library\n\n"
+    intro += "\n\ttakequiz <quiz_name>             --Start a new quiz\n"
 
-    intro += "\n\t-importquiz <path_to_quiz_JSON>   --Import a new quiz from a JSON file\n"
+    intro += "\n\tonlinequizzes                    --List online quizzes\n"
 
-    intro += "\n\t-takequiz <quiz_name>             --Start a new quiz\n"
+    intro += "\n\tdownloadquiz                     --Download quiz from online library\n"
 
-    intro += "="*100 + "\n\n"
+    intro += "\n\tuploadquiz                       --Upload a quiz to online library\n"
+
+    intro += "\n\ttakeonline                       --Take an online quiz\n"
 
     doc_header = "Documented commands (type help <topic>):"
 
@@ -91,31 +98,61 @@ class QuizApp(cmd.Cmd):
         # Empty list to store question answered wrongly and user answers
         wrong_questions = []
 
+        # Store the score of the user
         score = 0
+        
 
-        # # Load the json file and read it as dictionary
-        # with open("./sample_quizzes/"samplequiz) as f:
-        #     json_text = json.load(f)
+        # Get the number of questions on the json quiz file
+        questions_num = len(samplequiz["questions"])
 
-            # Print the question and options to the console
-        for counter, i in enumerate(samplequiz["questions"], 1) :
+        # Store starting time
+        start_time = time.time()
+
+        # Defined time on the quiz
+        quiz_time = int(samplequiz["time"])
+
+        # Stop the timer if tame taken is longer than required time
+        time_out = False
+
+        # Print the question and options to the console
+        for counter, i in enumerate(samplequiz["questions"], 1):
+
+            # Break if the user runs out of time
+            if (time.time() - start_time > quiz_time):
+                time_out = True
+                break
+
+            # Get difference of starting time and current time
+            elapsed_time = (time.time() - start_time)
+
+            # Get remaining time
+            remaining = int(quiz_time - elapsed_time)
+
+            # Pretify the console with 50*'='
+            print "\n" + "-+-"*10
+
+            # Display remaing time in user friendly formatting
+            print "\nRemaining Time in Seconds: " + str(remaining) + " \n"
+
+            # Pretify the console with 50*'='
+            print "-+-"*10
 
             # Print the question to the console. Counter dictate the position of the question
-            print "\nQn" + str(counter)+":" + i["Qn"]+ "\n"
+            print "\nQn" + str(counter)+" : " + i["Qn"]+ "\n"
 
             # Pretify the console with 50*'='
             print "="*70
 
-            # Print option A to console as an aswer potion    
+            # Print option A to console as an answer potion    
             print "A : " + i["A"]
 
-            # Print option B to console as an aswer potion 
+            # Print option B to console as an answer potion 
             print "B : " + i["B"]
 
-            # Print option C to console as an aswer potion 
+            # Print option C to console as an answer potion 
             print "C : " + i["C"]
 
-            # Print option D to console as an aswer potion 
+            # Print option D to console as an answer potion 
             print "D : " + i["D"] + "\n"
             
             # Prompt the user for the answer
@@ -208,10 +245,11 @@ Usage:
 
             if file.endswith("json"):
                 
-                print "\n\t" + str(num)+'. ' + file[:len(file) - 5]
-        print " "
-        print ">>> To take a quiz type 'takequiz <quiz_name>' or \n"
-        print ">>> To import a quiz  type 'importquiz' "
+                print "\n\t" + str(num)+'. ' + file[:len(file) - 5] + "\n"
+
+        print "Options: "
+        print "\tTo take a quiz type 'takequiz <quiz_name>' or \n"
+        print "\tTo import a quiz  type 'importquiz' "
 
 
     def do_takequiz(self, samplequiz):
@@ -235,12 +273,16 @@ Usage:
         # Load and read the json file as a dictionary
         with open(samplequiz) as f:
 
-            samplequiz = json.load(f)
+            try:
+                samplequiz = json.load(f)
 
 
-        # Call the function list_questions to print question to the console
-        # This function also displays results and question are wrongly answered
-        self.list_questions(samplequiz)
+                # Call the function list_questions to print question to the console
+                # This function also displays results and question are wrongly answered
+                self.list_questions(samplequiz)
+            except:
+
+                print "Enter a valid option"
 
 
     def do_importquiz(self, src):
@@ -298,6 +340,17 @@ Usage:
 
     def do_downloadquiz(self, samplequiz):
 
+        """
+Description: 
+
+    Console command for downloading quiz from online firebase library.
+
+Usage:
+
+    downloadquiz
+
+        """
+
         # Check if the command is passed with the argument
         if samplequiz:
 
@@ -308,51 +361,61 @@ Usage:
             dest_folder = "./sample_quizzes/" + samplequiz + ".json"
 
             # Create the file json
-            dest_ = os.mkdir(dest_folder) 
+            dest = os.mknod(dest_folder)
 
             try:
+                # requests.gets downloads the json file
+                requests.get(quiz_url) 
 
-                # Call a get request and store the dict to json_text
-                json_text = self.firebase.get(quiz_url, None)
-
-                # Write the dict to json file
-                with open('dest', 'w') as txtfile:
-
-                    json.dump(json_text, txtfile)
-
+                # Pretify print statement
+                print "\n" + "*" * 30
                 print "Quiz downloaded successfully!"
+                print "\n" + "*" * 30
 
-            # if error 
+            # Handle error and print
             except:
 
-                print "Quiz failed to downoad!"
+                print "\nQuiz failed to downoad!\n"
 
         else:
+
+            # Print options
             print "To download again please type:\n  downloadquiz <quiz_name>"
 
 
     def do_uploadquiz(self, samplequiz):
+        """
+Description: 
 
+    Console command for uploading quiz to online firebase library.
+
+Usage:
+
+    uploadquiz
+
+        """
         # Check if argument is given
         if samplequiz:
 
             # Current directory and name of the json file
             quiz_name = "./sample_quizzes/" + samplequiz + ".json"
 
-            try:
+            # Write the dict to json file
+            with open(quiz_name, 'r') as txtfile:
 
-                # Write the dict to json file
-                with open('dest', 'w') as txtfile:
+                try:
 
                     # This is dict    
                     json_text = json.load(txtfile)
 
-                # Call a post request and post to firebase db
-                self.firebase.put("/", samplequiz, json_text)
+                    # Call a post request and post to firebase db
+                    self.firebase.put("/", samplequiz, json_text)
 
-            # Return Error
-            except:
-                print "File didn't upload!"
+                    print "\nQuiz successfully uploaded!\n"
+
+                except:
+
+                    print "\nFile didn't upload!"
 
         else:
 
@@ -371,7 +434,7 @@ Usage:
             quiz = self.firebase.get(var_path, None)
 
             # Call list_questions to display the json file
-            self.list_questions(samplequiz)
+            self.list_questions(quiz)
 
 
 

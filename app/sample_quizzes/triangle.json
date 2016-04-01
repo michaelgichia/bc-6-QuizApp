@@ -1,4 +1,6 @@
-{	"questions": [{
+{	
+	"time": 100,
+	"questions": [{
 			"Qn": "Atriangle with one angle greater than 90 degrees.",
 			"A": "equilateral triangle",
 			"B": "obtuse triangle",
@@ -52,7 +54,6 @@
 			"A": "True",
 			"B": "False",
 			"C": "none of the above",
-			"D": "Four",
 			"answer": "A"
 		},{
 			"Qn": "The perimeter of a equilateral triangle is 15cm. What is the length of one side?",
@@ -72,7 +73,6 @@
 		}
 	]
 }
-
 
 
 
