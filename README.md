@@ -4,12 +4,21 @@
 
 * QuizApp is a command-line application
 
-* It has the folllowing commands:
-	* listquizzes - List of all the available quizzes in your library
+## Requirements
 
-	* importquiz <path_to_quiz_JSON> - Import a new quiz from a JSON file
+	* List of all the available quizzes in your library
 
-	* takequiz <quiz_name> - Start taking a new quiz
+	* Import a new quiz from a JSON file
+
+	* Start taking a new quiz
+
+	* List all the online quizzes
+	
+	* Download a quiz to your library
+	
+	* Publish a local quiz to the online library
+
+	* Add in an online quiz repository using Firebase 
 
 ## Installation and setup
 ###### Clone the repo
