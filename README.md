@@ -35,7 +35,7 @@ Run ``` <help> ``` command to get help on usage
 ## Credits
 [Michael Gichia](https://github.com/michaelgichia/)
 
-## Lincense
+## License
 
 ### The MIT License (MIT)
 
