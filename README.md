@@ -45,7 +45,7 @@ pip install -r requirements.txt
 ```
 
 ## Running 
-Run ```python python quizapp.py ``` to start the console
+Run ``` python quizapp.py ``` to start the console
 
 Run ```bash <help> ``` command to get help on usage
 
