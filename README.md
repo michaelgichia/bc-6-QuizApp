@@ -22,24 +22,24 @@
 
 ## Installation and setup
 ###### Clone the repo
-```
+```bash
 git clone https://github.com/michaelgichia/bc-6-QuizApp.git
 ```
 
 ###### Navigate to the root folder
-```
+```bash
 cd bc-6-QuizApp/app
 ```
 
 ###### Install the packages
-```
+```bash
 pip install -r requirements.txt
 ```
 
 ## Running 
-Run ``` python quizapp.py ``` to start the console
+Run ```bash python quizapp.py ``` to start the console
 
-Run ``` <help> ``` command to get help on usage
+Run ```bash <help> ``` command to get help on usage
 
 ## Credits
 [Michael Gichia](https://github.com/michaelgichia/)
