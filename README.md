@@ -4,7 +4,7 @@
 
 * QuizApp is a command-line application
 
-## QuizApp should have the following features:
+## Project meet the following requirements
 
 * QuizApp commands
     * `listquizzes`                     -List of all the available quizzes in your library
@@ -14,17 +14,23 @@
     * `takeonline`                      -Take online quiz
     * `downloadquiz`                    -Download quiz from online library
     * `uploadquiz`                      -Upload a quiz to online library
+    
 * When a user takes a quiz he gets a score based on the answers he got right
+
 * Timing can be added to quiz as a parameter in the JSON
+
 * As a user I can import quizzes from JSON files.
+
 * Add in an online quiz repository using Firebase (`extra credit`)
+
     * List all the online quizzes
     * Download a quiz to your library
     * Publish a local quiz to the online library 
 
 ## Installation and setup
+
 ###### Clone the repo
-```bash
+```python
 git clone https://github.com/michaelgichia/bc-6-QuizApp.git
 ```
 
@@ -39,7 +45,7 @@ pip install -r requirements.txt
 ```
 
 ## Running 
-Run ```bash python quizapp.py ``` to start the console
+Run ```python python quizapp.py ``` to start the console
 
 Run ```bash <help> ``` command to get help on usage
 
