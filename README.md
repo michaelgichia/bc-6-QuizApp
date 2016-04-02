@@ -4,7 +4,7 @@
 
 * QuizApp is a command-line application
 
-## Project meet the following requirements
+## Project should meet the following requirements:
 
 * QuizApp commands
     * `listquizzes`                     -List of all the available quizzes in your library
