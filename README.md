@@ -6,7 +6,7 @@
 
 ## Requirements
 
-	* List of all the available quizzes in your library
+* List of all the available quizzes in your library
 
 	* Import a new quiz from a JSON file
 
