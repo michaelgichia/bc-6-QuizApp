@@ -6,19 +6,21 @@
 
 ## QuizApp should have the following features:
 
-* List of all the available quizzes in your library
-
-* Import a new quiz from a JSON file
-
-* Start taking a new quiz
-
-* List all the online quizzes
-
-* Download a quiz to your library
-
-* Publish a local quiz to the online library
-
-* Add in an online quiz repository using Firebase 
+* QuizApp commands
+    * `listquizzes`                     -List of all the available quizzes in your library
+    * `importquiz <path_to_quiz_JSON>`  -Import a new quiz from a JSON file
+    * `takequiz <quiz_name>`            -Start taking a new quiz
+    * `onlinequizzes`                   -List all online quizzes
+    * `takeonline`                      -Take online quiz
+    * `downloadquiz`                    -Download quiz from online library
+    * `uploadquiz`                      -Upload a quiz to online library
+* When a user takes a quiz he gets a score based on the answers he got right
+* Timing can be added to quiz as a parameter in the JSON
+* As a user I can import quizzes from JSON files.
+* Add in an online quiz repository using Firebase (`extra credit`)
+    * List all the online quizzes
+    * Download a quiz to your library
+    * Publish a local quiz to the online library 
 
 ## Installation and setup
 ###### Clone the repo
