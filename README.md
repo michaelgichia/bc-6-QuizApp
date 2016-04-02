@@ -28,7 +28,7 @@ git clone https://github.com/michaelgichia/bc-6-QuizApp.git
 
 ###### Navigate to the root folder
 ```
-cd michaelgichia/bc-6-QuizApp/app
+cd bc-6-QuizApp/app
 ```
 
 ###### Install the packages
